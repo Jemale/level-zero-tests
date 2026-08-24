@@ -602,7 +602,7 @@ void zetDebugEventReadTest::run_test(std::vector<ze_device_handle_t> &devices,
       } else if (ZET_DEBUG_EVENT_TYPE_PROCESS_EXIT == debug_event.type) {
         EXPECT_GT(eventNum, 1);
         gotProcExit = true;
-        // break;
+        break;
       }
 
     } while (ZET_DEBUG_EVENT_TYPE_INVALID != debug_event.type);
@@ -1919,7 +1919,7 @@ void zetDebugThreadControlTest::run_unavailable_thread_test(
 
     std::vector<zet_debug_event_type_t> expectedEvents = {
         ZET_DEBUG_EVENT_TYPE_MODULE_UNLOAD, ZET_DEBUG_EVENT_TYPE_PROCESS_EXIT,
-        ZET_DEBUG_EVENT_TYPE_THREAD_UNAVAILABLE};
+        ZET_DEBUG_EVENT_TYPE_DETACHED, ZET_DEBUG_EVENT_TYPE_THREAD_UNAVAILABLE};
 
     if (!check_events(debugSession, expectedEvents)) {
       FAIL() << "[Debugger] Did not receive expected events";
